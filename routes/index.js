@@ -5,7 +5,7 @@ var db = require('../db');
 
 /* GET home page. */
 router.get('/', function(req, res) {
-  db.getAllLocations(function (data) {
+  db.getLocations(function (data) {
     if (!data)
       console.log('Error retrieving locations!');
     else 
@@ -14,18 +14,22 @@ router.get('/', function(req, res) {
 });
 
 router.get('/api/locations', function(req, res) {
-  db.getAllLocations(function (data) {
+  db.getLocations(function (data) {
     if (!data)
       console.log('Error retrieving locations!');
     else {
       res.status(200)
         .json({
-          status: 'success',
-          message: 'Retrieved locations...',
-          data: data
+          locations: data
         });
     }
   });
+});
+
+router.put('/api/updateLocation', function(req, res) {
+  console.log('Params: ' + req.params);
+  console.log('Body: ' + req.body);
+  db.updateLocation(req.body, function (result) {});
 });
 
 module.exports = router;

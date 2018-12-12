@@ -5,7 +5,7 @@ dotenv.config();
 
 module.exports = {
     resetConnection: resetConnection,
-    getAllLocations: getAllLocations,
+    getLocations: getLocations,
     updateLocation: updateLocation
 };
 
@@ -26,21 +26,20 @@ function resetConnection() {
             process.exit(-1);
         }
     
-        const queryText =
-        `
-        DROP TABLE IF EXISTS business;
+        const queryText = `
+            DROP TABLE IF EXISTS business;
     
-        CREATE TABLE IF NOT EXISTS
-            business(
-                location_name VARCHAR(128) PRIMARY KEY,
-                location_type INTEGER NOT NULL,
-                extent INTEGER NOT NULL,
-                last_updated TIMESTAMP
-            );
+            CREATE TABLE IF NOT EXISTS
+                business(
+                    location_name VARCHAR(128) PRIMARY KEY,
+                    location_type INTEGER NOT NULL,
+                    extent INTEGER NOT NULL,
+                    last_updated TIMESTAMP
+                );
     
-        INSERT INTO business(location_name, location_type, extent, last_updated)
-        VALUES 
-            ('Home', 0, 0, NOW());
+            INSERT INTO business(location_name, location_type, extent, last_updated)
+            VALUES 
+                ('Home', 0, 0, NOW());
         `;
         client.query(queryText, function(err, result) {
             if(err) {
@@ -53,7 +52,18 @@ function resetConnection() {
     });
 }
 
-function getAllLocations(cb) {
+class Location {
+    constructor(data) {
+      this.name = data.location_name;
+      this.extent = data.extent;
+    };
+
+    isValid() {
+        return this.name && this.extent;
+    };
+}
+
+function getLocations(cb) {
     client.query('select * from business', function(err, result) {
         if(err) {
             console.error('Error fetching locations...', err);
@@ -65,6 +75,29 @@ function getAllLocations(cb) {
     });
 }
 
-function updateLocation() {
+function updateLocation(data, cb) {
+    var location = new Location(data);
+
+    if (!location.isValid()) {
+        cb (false);
+        return;
+    }
+
+    const queryText = `
+        UPDATE business
+        SET extent = ${location.extent},
+            last_updated = NOW()
+        WHERE
+            location_name = '${location.name}';
+    `;
+    client.query(queryText, function(err, result) {
+        if(err) {
+            console.error('Error updating locations...', err);
+            cb(false);
+        }
+        else {
+            cb(true);
+        }
+    });
 }
   

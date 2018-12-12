@@ -9,12 +9,12 @@ block content
   br
 
   div Locations:
-  ul
+  ul(id='locations-list')
     each item in locations
-      li(id='locations list')
-        div= item['location_name']
-        div= item['location_type']
-        div= item['extent']
-        div= item['last_updated']
+      li(id=item['location_name'].toLowerCase())
+        div(class='name')= item['location_name']
+        div(class='type')= item['location_type']
+        div(class='extent')= item['extent']
+        div(class='timestamp')= item['last_updated']
 
   script(src="/javascripts/update.js")
