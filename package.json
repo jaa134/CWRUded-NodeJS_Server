@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "heroku-postbuild": "npm install --production",
-    "start": "node db && node ./bin/www"
+    "start": "node ./bin/www"
   },
   "dependencies": {
     "body-parser": "~1.0.0",
