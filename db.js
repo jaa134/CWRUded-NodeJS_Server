@@ -21,14 +21,18 @@ client.connect(function(err) {
     const queryText =
     `
     DROP TABLE IF EXISTS business;
+
     CREATE TABLE IF NOT EXISTS
         business(
-            id UUID PRIMARY KEY,
-            location_name VARCHAR(128) NOT NULL,
+            location_name VARCHAR(128) PRIMARY KEY,
             location_type INTEGER NOT NULL,
             extent INTEGER NOT NULL,
             last_updated TIMESTAMP
         );
+
+    INSERT INTO business(location_name, location_type, extent, last_updated)
+    VALUES 
+        ('Home', 0, 0, NOW());
     `;
     client.query(queryText, function(err, result) {
         if(err) {
@@ -37,7 +41,27 @@ client.connect(function(err) {
         }
 
         console.log(result);
-        client.end();
-        process.exit(0);
-  });
+        //client.end();
+    });
 });
+
+module.exports = {
+    getAllLocations: getAllLocations,
+    updateLocation: updateLocation
+};
+
+function getAllLocations(cb) {
+    client.query('select * from business', function(err, result) {
+        if(err) {
+            console.error('Error fetching locations...', err);
+            cb(false);
+        }
+        else {
+            cb(result['rows']);
+        }
+    });
+}
+
+function updateLocation(req, res, next) {
+}
+  

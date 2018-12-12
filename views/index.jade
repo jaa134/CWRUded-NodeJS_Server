@@ -2,5 +2,19 @@ extends layout
 
 block content
   h1= title
-  p Welcome to #{title}
+  span(style='padding-right: 1rem;') Welcome to #{title}
   i(class='far fa-clock')
+  
+  br
+  br
+
+  div Locations:
+  ul
+    each item in locations
+      li(id='locations list')
+        div= item['location_name']
+        div= item['location_type']
+        div= item['extent']
+        div= item['last_updated']
+
+  script(src="/javascripts/update.js")
