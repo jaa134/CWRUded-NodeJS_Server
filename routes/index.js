@@ -27,8 +27,6 @@ router.get('/api/locations', function(req, res) {
 });
 
 router.put('/api/updateLocation', function(req, res) {
-  console.log('Params: ' + req.params);
-  console.log('Body: ' + req.body);
   db.updateLocation(req.body, function (result) {});
 });
 

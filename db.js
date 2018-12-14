@@ -39,7 +39,7 @@ function resetConnection() {
     
             INSERT INTO business(location_name, location_type, extent, last_updated)
             VALUES 
-                ('Home', 0, 0, NOW());
+                ('Home', 0, 0, NOW() AT TIME ZONE 'EST');
         `;
         client.query(queryText, function(err, result) {
             if(err) {
@@ -64,12 +64,17 @@ class Location {
 }
 
 function getLocations(cb) {
-    client.query('select * from business', function(err, result) {
+    const queryText = `
+        SELECT *, TO_CHAR(last_updated, 'MON DD, hh:mmam') as formatted_date
+        FROM business;
+    `;
+    client.query(queryText, function(err, result) {
         if(err) {
             console.error('Error fetching locations...', err);
             cb(false);
         }
         else {
+            console.log(result['rows'])
             cb(result['rows']);
         }
     });
@@ -86,7 +91,7 @@ function updateLocation(data, cb) {
     const queryText = `
         UPDATE business
         SET extent = ${location.extent},
-            last_updated = NOW()
+            last_updated = NOW() AT TIME ZONE 'EST'
         WHERE
             location_name = '${location.name}';
     `;

@@ -3,7 +3,7 @@ class Location {
     this.name = data.location_name;
     this.type = data.location_type;
     this.extent = data.extent;
-    this.timestamp = data.last_updated;
+    this.timestamp = data.formatted_date;
   }
 }
 
@@ -26,10 +26,8 @@ var updateLocations = function(locations) {
     locations.forEach(function (locationJSON) {
         var location = new Location(locationJSON);
         var $row = $('#' + location.name.toLowerCase());
-        $row.children('.name').text(location.name);
-        $row.children('.type').text(location.type);
-        $row.children('.extent').text(location.extent);
-        $row.children('.timestamp').text(location.timestamp);
+        $row.find('.extent').text(location.extent);
+        $row.find('.timestamp').text(location.timestamp);
     });
 }
 
