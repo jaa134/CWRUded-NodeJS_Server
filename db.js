@@ -33,13 +33,13 @@ function resetConnection() {
                 business(
                     location_name VARCHAR(128) PRIMARY KEY,
                     location_type INTEGER NOT NULL,
-                    extent INTEGER NOT NULL,
+                    extent VARCHAR(128) NOT NULL,
                     last_updated TIMESTAMP
                 );
     
             INSERT INTO business(location_name, location_type, extent, last_updated)
             VALUES 
-                ('Home', 0, 0, NOW() AT TIME ZONE 'EST');
+                ('Home', 0, 'Unknown', NOW() AT TIME ZONE 'EST');
         `;
         client.query(queryText, function(err, result) {
             if(err) {
@@ -90,11 +90,12 @@ function updateLocation(data, cb) {
 
     const queryText = `
         UPDATE business
-        SET extent = ${location.extent},
+        SET extent = '${location.extent}',
             last_updated = NOW() AT TIME ZONE 'EST'
         WHERE
             location_name = '${location.name}';
     `;
+    console.log(queryText);
     client.query(queryText, function(err, result) {
         if(err) {
             console.error('Error updating locations...', err);
