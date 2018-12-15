@@ -65,7 +65,7 @@ class Location {
 
 function getLocations(cb) {
     const queryText = `
-        SELECT *, TO_CHAR(last_updated, 'MON DD, hh:mmam') as formatted_date
+        SELECT *, TO_CHAR(last_updated, 'Mon FMDD, FMHH:MIam') as formatted_date
         FROM business;
     `;
     client.query(queryText, function(err, result) {
