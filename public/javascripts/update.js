@@ -28,7 +28,7 @@ var getUpdate = function () {
         }).fail(function() {
             console.error('request failed');
         }).done(function(data) {
-            updateLocations(data.locations);
+            updateLocations(data);
         }).always(function(data) {
             getUpdate();
         });

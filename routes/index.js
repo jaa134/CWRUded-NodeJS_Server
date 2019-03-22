@@ -63,11 +63,11 @@ var randomLocationArray = function () {
 
 
 router.get('/', function(req, res) {
-  res.render('index', { title: 'CWRUded', locations: randomLocationArray() });
+  res.render('index', { title: 'CWRUded' });
 });
 
 router.get('/api/locations', function(req, res) {
-  res.status(200).json({ locations: randomLocationArray() });
+  res.status(200).json(randomLocationArray());
 });
 
 module.exports = router;
