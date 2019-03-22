@@ -1,12 +1,6 @@
 extends layout
 
 block content
-  div(class='title-bar')
-    div(style='display: flex; align-items: center; height: 100%;')
-      div(style='flex-grow: 0;')
-        <i class="service-logo fas fa-graduation-cap"></i>
-      div(style='flex-grow: 1;')
-        span(class='service-name')= title
 
   div(class='content')
     div(class='slogan')
@@ -14,15 +8,14 @@ block content
       div Know before you go
       
     br
+    div(class='timestamp' style='flex-grow: 0;')
     br
 
     ul(id='locations-list')
       each item in locations
-        li(id=item['location_name'].toLowerCase() class='result')
-          div(style='display: flex; align-items: center; height: 100%;')
-            div(class='icon' style='flex-grow: 0;') <i class="fas fa-home"></i>
-            div(class='name' style='flex-grow: 1;')= item['location_name']
-            div(class='extent' style='flex-grow: 1;')= item['extent']
-            div(class='timestamp' style='flex-grow: 0;')=item['formatted_date']
+        li(id=item['location_name'].toLowerCase())
+            div(class='icon') <i class=""></i>
+            div(class='name')
+            div(class='congestion')
 
   script(src="/javascripts/update.js")

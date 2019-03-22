@@ -1,10 +1,18 @@
+class Space {
+    constructor(id, name, congestionRating) {
+        this.id = id
+        this.name = name;
+        this.congestionRating = congestionRating;
+    }
+}
+  
 class Location {
-  constructor(data) {
-    this.name = data.location_name;
-    this.type = data.location_type;
-    this.extent = data.extent;
-    this.timestamp = data.formatted_date;
-  }
+    constructor(id, type, name, spaces) {
+        this.id = id;
+        this.type = type;
+        this.name = name;
+        this.spaces = spaces;
+    }
 }
 
 var getUpdate = function () {
@@ -23,11 +31,13 @@ var getUpdate = function () {
 };
 
 var updateLocations = function(locations) {
+    $('.timestamp').text(new Date().toLocaleString());
     locations.forEach(function (locationJSON) {
         var location = new Location(locationJSON);
         var $row = $('#' + location.name.toLowerCase());
-        $row.find('.extent').text(location.extent);
-        $row.find('.timestamp').text(location.timestamp);
+        $row.find('.icon').text(location.icon);
+        $row.find('.name').text(location.name);
+        //$row.find('.congestion-rating').text(location.congestionRating);
     });
 }
 
