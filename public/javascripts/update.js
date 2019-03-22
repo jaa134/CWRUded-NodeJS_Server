@@ -11,7 +11,12 @@ class Location {
         this.id = id;
         this.type = type;
         this.name = name;
-        this.spaces = spaces;
+
+        this.spaces = [];
+        var self = this;
+        spaces.forEach(function (data) {
+            self.spaces.push(new Space(data.id, data.name, data.congestionRating));
+        });
     }
 }
 
@@ -30,15 +35,36 @@ var getUpdate = function () {
     }, 3000);
 };
 
-var updateLocations = function(locations) {
+var updateLocations = function(locationsData) {
     $('.timestamp').text(new Date().toLocaleString());
-    locations.forEach(function (locationJSON) {
-        var location = new Location(locationJSON);
-        var $row = $('#' + location.name.toLowerCase());
-        $row.find('.icon').text(location.icon);
-        $row.find('.name').text(location.name);
-        //$row.find('.congestion-rating').text(location.congestionRating);
+
+    var locations = [];
+    locationsData.forEach(function (data) {
+        locations.push(new Location(data.id, data.type, data.name, data.spaces));
     });
+
+    var list = ''
+    locations.forEach(function (location) {
+        list += 
+            `<li id="${location.id}">` +
+                `<div>` +
+                    `<span class="fa icon ${location.type}"></span>` +
+                    `<span class="name"><strong>${location.name}</strong></span>`;
+
+        location.spaces.forEach(function (space) {
+            list += `<div>` + 
+                        `<div style="float: left; width:100px">${space.name}</div>` + 
+                        `<span>${space.congestionRating}</span>` + 
+                    `</div>`;
+        });
+
+        list +=
+                `</div>` +
+                `</br>` +
+            `</li>`;
+    });
+    $('#locations-list').html(list)
 }
 
+$('.timestamp').text(new Date().toLocaleString());
 getUpdate();

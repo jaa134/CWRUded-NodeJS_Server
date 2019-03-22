@@ -1,8 +1,25 @@
 body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-  background-color: white
-  list-style: none;
-  width: 100%;
+  background-color: white;
   font-size: 20px;
   color: black
+}
+
+.icon {
+  width: 40px;
+}
+
+.academic:before {
+  font-family: "Font Awesome 5 Free";
+  content: "\f02d";
+}
+
+.dining:before {
+  font-family: "Font Awesome 5 Free";
+  content: "\f2e7";
+}
+
+.gym:before {
+  font-family: "Font Awesome 5 Free";
+  content: "\f44b";
 }

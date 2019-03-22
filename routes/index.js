@@ -2,9 +2,9 @@ var express = require('express');
 var router = express.Router();
 
 const type = {
-  ACADEMIC: { text: 'academic', unicode: '\uf02d' },
-  DINING: { text: 'dining', unicode: '\uf2e7' },
-  GYM: { text: 'gym', unicode: '\uf44b' }
+  ACADEMIC: 'academic',
+  DINING: 'dining',
+  GYM: 'gym'
 }
 
 class Space {
@@ -36,18 +36,26 @@ var randomLocationArray = function () {
     new Space(2, "3rd Floor", randomCongestionValue(65))
   ]
 
-  return [
-    new Location(0, type.ACADEMIC.unicode, "Kelvin Smith Library",  spacesKSL),
-    new Location(1, type.ACADEMIC.unicode, "Olin",                  [new Space(0, "General", randomCongestionValue(12))]),
-    new Location(2, type.GYM.unicode,      "Veale Athletic Center", [new Space(0, "General", randomCongestionValue(54))]),
-    new Location(3, type.DINING.unicode,   "Fribley Dining Hall",   [new Space(0, "General", randomCongestionValue(76))]),
-    new Location(4, type.ACADEMIC.unicode, "Nord",                  [new Space(0, "General", randomCongestionValue(32))]),
-    new Location(5, type.ACADEMIC.unicode, "Strosacker",            [new Space(0, "General", randomCongestionValue(21))]),
-    new Location(6, type.GYM.unicode,      "Wyant Athletic Center", [new Space(0, "General", randomCongestionValue(93))]),
-    new Location(7, type.DINING.unicode,   "Leutner Dining Hall",   [new Space(0, "General", randomCongestionValue(40))]),
-    new Location(8, type.ACADEMIC.unicode, "Thwing",                [new Space(0, "General", randomCongestionValue(10))]),
-    new Location(9, type.ACADEMIC.unicode, "Tinkham Veale",         [new Space(0, "General", randomCongestionValue(22))])
+  var locations =  [
+    new Location(0, type.ACADEMIC, "Kelvin Smith Library",  spacesKSL),
+    new Location(1, type.ACADEMIC, "Olin",                  [new Space(0, "General", randomCongestionValue(12))]),
+    new Location(2, type.GYM,      "Veale Athletic Center", [new Space(0, "General", randomCongestionValue(54))]),
+    new Location(3, type.DINING,   "Fribley Dining Hall",   [new Space(0, "General", randomCongestionValue(76))]),
+    new Location(4, type.ACADEMIC, "Nord",                  [new Space(0, "General", randomCongestionValue(32))]),
+    new Location(5, type.ACADEMIC, "Strosacker",            [new Space(0, "General", randomCongestionValue(21))]),
+    new Location(6, type.GYM,      "Wyant Athletic Center", [new Space(0, "General", randomCongestionValue(93))]),
+    new Location(7, type.DINING,   "Leutner Dining Hall",   [new Space(0, "General", randomCongestionValue(40))]),
+    new Location(8, type.ACADEMIC, "Thwing",                [new Space(0, "General", randomCongestionValue(10))]),
+    new Location(9, type.ACADEMIC, "Tinkham Veale",         [new Space(0, "General", randomCongestionValue(22))])
   ]
+
+  function sortByName(a, b) {
+    var aName = a.name.toLowerCase();
+    var bName = b.name.toLowerCase(); 
+    return ((aName < bName) ? -1 : ((aName > bName) ? 1 : 0));
+  }
+
+  return locations.sort(sortByName);
 }
 
 

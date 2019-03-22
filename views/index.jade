@@ -8,14 +8,9 @@ block content
       div Know before you go
       
     br
-    div(class='timestamp' style='flex-grow: 0;')
+    div(class='timestamp')
     br
 
     ul(id='locations-list')
-      each item in locations
-        li(id=item['location_name'].toLowerCase())
-            div(class='icon') <i class=""></i>
-            div(class='name')
-            div(class='congestion')
 
   script(src="/javascripts/update.js")
