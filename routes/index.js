@@ -16,11 +16,13 @@ class Space {
 }
 
 class Location {
-  constructor(id, type, name, spaces) {
+  constructor(id, type, name, spaces, longitude, latitude) {
     this.id = id;
     this.type = type;
     this.name = name;
     this.spaces = spaces;
+    this.longitude = longitude;
+    this.latitude = latitude;
   }
 }
 
@@ -37,16 +39,16 @@ var randomLocationArray = function () {
   ]
 
   var locations =  [
-    new Location(0, type.ACADEMIC, "Kelvin Smith Library",  spacesKSL),
-    new Location(1, type.ACADEMIC, "Olin",                  [new Space(0, "General", randomCongestionValue(12))]),
-    new Location(2, type.GYM,      "Veale Athletic Center", [new Space(0, "General", randomCongestionValue(54))]),
-    new Location(3, type.DINING,   "Fribley Dining Hall",   [new Space(0, "General", randomCongestionValue(76))]),
-    new Location(4, type.ACADEMIC, "Nord",                  [new Space(0, "General", randomCongestionValue(32))]),
-    new Location(5, type.ACADEMIC, "Strosacker",            [new Space(0, "General", randomCongestionValue(21))]),
-    new Location(6, type.GYM,      "Wyant Athletic Center", [new Space(0, "General", randomCongestionValue(93))]),
-    new Location(7, type.DINING,   "Leutner Dining Hall",   [new Space(0, "General", randomCongestionValue(40))]),
-    new Location(8, type.ACADEMIC, "Thwing",                [new Space(0, "General", randomCongestionValue(10))]),
-    new Location(9, type.ACADEMIC, "Tinkham Veale",         [new Space(0, "General", randomCongestionValue(22))])
+    new Location(0, type.ACADEMIC, "Kelvin Smith Library",  spacesKSL,                                            41.507336, -81.609616),
+    new Location(1, type.ACADEMIC, "Olin Building",         [new Space(0, "General", randomCongestionValue(12))], 41.502121, -81.607890),
+    new Location(2, type.GYM,      "Veale Athletic Center", [new Space(0, "General", randomCongestionValue(54))], 41.500991, -81.606196),
+    new Location(3, type.DINING,   "Fribley Dining Hall",   [new Space(0, "General", randomCongestionValue(76))], 41.501051, -81.602680),
+    new Location(4, type.ACADEMIC, "Nord Hall",             [new Space(0, "General", randomCongestionValue(32))], 41.502529, -81.607873),
+    new Location(5, type.ACADEMIC, "Strosacker Auditorium", [new Space(0, "General", randomCongestionValue(21))], 41.503242, -81.607407),
+    new Location(6, type.GYM,      "Wyant Athletic Center", [new Space(0, "General", randomCongestionValue(93))], 41.514078, -81.603269),
+    new Location(7, type.DINING,   "Leutner Dining Hall",   [new Space(0, "General", randomCongestionValue(40))], 41.513459, -81.605994),
+    new Location(8, type.ACADEMIC, "Thwing Center",         [new Space(0, "General", randomCongestionValue(10))], 41.507274, -81.608238),
+    new Location(9, type.ACADEMIC, "Tinkham Veale",         [new Space(0, "General", randomCongestionValue(22))], 41.508091, -81.608659)
   ]
 
   function sortByName(a, b) {
