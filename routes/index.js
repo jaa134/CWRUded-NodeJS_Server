@@ -16,13 +16,13 @@ class Space {
 }
 
 class Location {
-  constructor(id, type, name, spaces, longitude, latitude) {
+  constructor(id, type, name, spaces, latitude, longitude) {
     this.id = id;
     this.type = type;
     this.name = name;
     this.spaces = spaces;
-    this.longitude = longitude;
     this.latitude = latitude;
+    this.longitude = longitude;
   }
 }
 
