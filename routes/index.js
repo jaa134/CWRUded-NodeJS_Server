@@ -72,8 +72,7 @@ var randomLocationArray = function () {
     new Space(3, "4th Floor", randomCongestionValue(22)),
     new Space(4, "5th Floor", randomCongestionValue(43)),
     new Space(5, "6th Floor", randomCongestionValue(77)),
-    new Space(6, "7th Floor", randomCongestionValue(32)),
-    new Space(7, "8th Floor", randomCongestionValue(10))
+    new Space(6, "7th Floor", randomCongestionValue(32))
   ]
 
   var spacesMillis = [

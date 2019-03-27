@@ -53,7 +53,7 @@ var updateLocations = function(locationsData) {
 
         location.spaces.forEach(function (space) {
             list += `<div>` + 
-                        `<div style="float: left; width:100px">${space.name}</div>` + 
+                        `<div style="float: left; width:200px">${space.name}</div>` + 
                         `<span>${space.congestionRating}</span>` + 
                     `</div>`;
         });
