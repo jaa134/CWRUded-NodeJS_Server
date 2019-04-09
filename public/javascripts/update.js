@@ -1,21 +1,31 @@
+class Rating {
+    constructor(value, createdOn) {
+        this.value = value;
+        this.createdOn = new Date()
+    }
+}
+
 class Space {
-    constructor(id, name, congestionRating) {
-        this.id = id
+    constructor(name, history) {
         this.name = name;
-        this.congestionRating = congestionRating;
+
+        var self = this;
+        self.history = "";
+        history.reverse().forEach(function (data) {
+            self.history += data.value + "&nbsp;&nbsp;";
+        });
     }
 }
   
 class Location {
-    constructor(id, type, name, spaces) {
-        this.id = id;
+    constructor(type, name, spaces) {
         this.type = type;
         this.name = name;
 
-        this.spaces = [];
         var self = this;
+        self.spaces = [];
         spaces.forEach(function (data) {
-            self.spaces.push(new Space(data.id, data.name, data.congestionRating));
+            self.spaces.push(new Space(data.name, data.history));
         });
     }
 }
@@ -32,7 +42,7 @@ var getUpdate = function () {
         }).always(function(data) {
             getUpdate();
         });
-    }, 3000);
+    }, 5000);
 };
 
 var updateLocations = function(locationsData) {
@@ -40,13 +50,13 @@ var updateLocations = function(locationsData) {
 
     var locations = [];
     locationsData.forEach(function (data) {
-        locations.push(new Location(data.id, data.type, data.name, data.spaces));
+        locations.push(new Location(data.type, data.name, data.spaces));
     });
 
     var list = ''
     locations.forEach(function (location) {
         list += 
-            `<li id="${location.id}">` +
+            `<li>` +
                 `<div>` +
                     `<span class="fa icon ${location.type}"></span>` +
                     `<span class="name"><strong>${location.name}</strong></span>`;
@@ -54,7 +64,7 @@ var updateLocations = function(locationsData) {
         location.spaces.forEach(function (space) {
             list += `<div>` + 
                         `<div style="float: left; width:200px">${space.name}</div>` + 
-                        `<span>${space.congestionRating}</span>` + 
+                        `<span>${space.history}</span>` + 
                     `</div>`;
         });
 
